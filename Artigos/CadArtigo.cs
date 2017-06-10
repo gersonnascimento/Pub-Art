@@ -59,29 +59,16 @@ namespace Artigos
         private void button2_Click(object sender, EventArgs e)
         {
             var listarArt = new ArtigosList();
-            listarArt.ShowDialog();
-
-            //Verificar se foi selecionado algum item
-            if (listarArt.ArtigoSelect == "")
-                return;
-
-            var conn = ConnectOpen;
-            //Buscar usuário selecionado
-            string sql = "Select * from Artigo where codAutor = '" + listarArt.ArtigoSelect + "'";
-
-
-            DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(sql, conn);
-            da.Fill(dt);
-
-
-
+            listarArt.lartigos();
+            listarArt.Show();
+            this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Revisados r = new Revisados();
-            r.Show();
+            var listarArt = new ArtigosList();
+            listarArt.lrevisados();
+            listarArt.ShowDialog();
             this.Hide();
         }
     }

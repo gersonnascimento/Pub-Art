@@ -13,14 +13,39 @@ namespace Artigos
 {
     public partial class NovosArtigoscs : Form
     {
+        public static int idArtigo;
         private Conexao conn;
         private SqlConnection ConnectOpen;
+
+        public int cont = 0;
+
+        bool veioDaTela1()
+        {
+            if (cont == 0)
+                return true;
+            else return false;
+        }
 
         public NovosArtigoscs()
         {
             InitializeComponent();
             conn = new Conexao();
             ConnectOpen = conn.ConnectToDatabase();
+        }
+
+        public void somenteVisualizacao()
+        {
+            this.button1.Visible = false;
+            this.txtTexto.Enabled = false;
+            this.txtTitulo.Enabled = false;
+            this.comboBox1.Enabled = false;
+        }
+
+        public void carregaDados(int id, string titulo, string texto)
+        {
+            this.txtTexto.Text = texto;
+            this.txtTitulo.Text = titulo;
+            idArtigo = id;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -74,10 +99,18 @@ namespace Artigos
 
     private void button2_Click(object sender, EventArgs e)
         {
-            CadArtigo cadArtigo = new CadArtigo();
-            //cadArtigo.id = this.id;
-            cadArtigo.Show();
-            this.Hide();
+            if (veioDaTela1())
+            {
+                CadArtigo cadArtigo = new CadArtigo();
+                //cadArtigo.id = this.id;
+                cadArtigo.Show();
+                this.Hide();
+            }
+            else
+            {
+                ArtigosList a = new ArtigosList();
+                a.Show();
+            }
         }
     }
 }
